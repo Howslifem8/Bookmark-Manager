@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'includes/db.php'; // make sure this connects to your DB
+require '../includes/db.php'; // make sure this connects to your DB
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim($_POST['username']);
@@ -33,9 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } else {
             $_SESSION['errors']['db_error'] = "Database error: " . $e->getMessage();
         }
+        
+        header("Location: ../index.php");
+        exit();
+
     }
 
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 ?>

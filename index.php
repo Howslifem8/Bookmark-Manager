@@ -12,7 +12,7 @@ include 'includes/header.php';
 
 <div class="signin">
     <h1 class="w3-center">Sign in</h1>
-    <form method="POST" action="login.php">
+    <form method="POST" action="login.php" class="w3-center">
         <label for="username" class="">Username:</label><br>
         <input type="text" id="username" name="username" class=""><br>
 
@@ -25,9 +25,10 @@ include 'includes/header.php';
 </div>
 
 
-<div class=" signin register">
+<div class="w3-display-container register">
+
     <h1 class="w3-center">Register</h1>
-    <form method="POST" action="register.php">
+    <form method="POST" action="handlers/register.php" class="w3-center">
 
                                        <!-- Username  -->
         <label for="username" class="">Username</label><br>
