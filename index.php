@@ -33,15 +33,31 @@ include 'includes/header.php';
                                        <!-- Username  -->
         <label for="username" class="">Username</label><br>
         <input type="text" name="username" required class=""><br>
-
+        <?php 
+            if (isset($_SESSION['errors']['bad_username'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['bad_username'] . "</p>";
+            } 
+            if (isset($_SESSION['errors']['empty_username'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['empty_username'] . "</p>"; 
+            } 
+            if (isset($_SESSION['errors']['username_length'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['username_length'] . "</p>"; 
+            }
+        ?>       
 
                                        <!-- Email  -->
         <label for="Email" class="">Email</label><br>
         <input type="text" name="email" required class=""><br>   
                                         <!-- Duplicate email Error Handling -->
         <?php 
-            if (isset($_SESSION['errors']['email_error'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['email_error'] . "</p>";
+            if (isset($_SESSION['errors']['invalid_email'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['invalid_email'] . "</p>";
+            }
+            if (isset($_SESSION['errors']['empty_email'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['empty_email'] . "</p>";
+            }
+            if (isset($_SESSION['errors']['email_length'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['email_length'] . "</p>";
             }
         ?>
 
@@ -49,15 +65,27 @@ include 'includes/header.php';
         <label for="password" class="">Password</label><br>
         <input type="text" name="password" required class=""><br>
 
+        <?php 
+            if (isset($_SESSION['errors']['empty_password'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['empty_password'] . "</p>";
+            }
+            if (isset($_SESSION['errors']['short_password'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['short_password'] . "</p>";
+            }
+            if (isset($_SESSION['errors']['long_password'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['long_password'] . "</p>";
+            }
+        ?>
 
                                        <!-- Confirm Password  -->
         <label for="confirm_password" class="">Confirm Password</label><br>
-        <input type="text" name="confirm_password" required class=""><br>  
+        <input type="text" name="confirm_password" required class=""><br> 
+
                                         <!-- Passwords Do Not Match error Handling  -->
         <?php 
-        if (isset($_SESSION['errors']['confirm_password_error'])) {
-            echo "<p style='color:red'>" . $_SESSION['errors']['confirm_password_error'] . "</p>";
-        }
+            if (isset($_SESSION['errors']['confirm_password_error'])) {
+                echo "<p style='color:red'>" . $_SESSION['errors']['confirm_password_error'] . "</p>";
+            }
         ?>
 
                                         
