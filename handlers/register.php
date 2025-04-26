@@ -2,9 +2,12 @@
 session_start();
 require '../includes/db.php'; // make sure this connects to your DB
 
-    //triming user inputs
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    //user inputs : BELOW 
+        // - name - "username" 
+        // - name - "email"
+        //- name - "password" 
 
 
 
