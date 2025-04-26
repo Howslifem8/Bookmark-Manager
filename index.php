@@ -12,14 +12,14 @@ include 'includes/header.php';
 
 <div class="signin">
     <h1 class="w3-center">Sign in</h1>
-    <form method="POST" action="login.php" class="w3-center">
-        <label for="username" class="">Username:</label><br>
-        <input type="text" id="username" name="username" class=""><br>
+    <form method="POST" action="handlers/login.php" class="w3-center">
+        <label for="username" class="">Email:</label><br>
+        <input type="text" id="email" name="email" class=""><br>
 
         <label for="password" class="">Password:</label><br>
         <input type="text" id="password" name="password" class=""><br>
 
-        <input type="submit" value="Sign In" class="w3-btn">
+        <button type="submit" name="login" class="w3-btn">Login</button>
     </form>
     
 </div>
