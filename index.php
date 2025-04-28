@@ -15,9 +15,29 @@ include 'includes/header.php';
     <form method="POST" action="handlers/login.php" class="w3-center">
         <label for="username" class="">Email:</label><br>
         <input type="text" id="email" name="email" class=""><br>
+        <?php 
+        if (isset($_SESSION['errors']['no_email_found'])){
+            echo "<p style='color:red'>" . $_SESSION['errors']['no_email_found'] . "</p>";
+        }
+        ?>
+
+
+
 
         <label for="password" class="">Password:</label><br>
         <input type="text" id="password" name="password" class=""><br>
+        <?php 
+        if (isset($_SESSION['errors']['incorrect_password'])){
+            echo "<p style='color:red'>" . $_SESSION['errors']['incorrect_password'] . "</p>";
+        }
+        ?>
+
+
+
+
+
+
+
 
         <button type="submit" name="login" class="w3-btn">Login</button>
     </form>
