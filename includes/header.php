@@ -6,7 +6,8 @@
     <title>Bookmark Manager</title>
 		<!--We are using the W3.css framework -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js"></script>
 
 <body>
     <main></main>
