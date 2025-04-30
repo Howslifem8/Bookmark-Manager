@@ -41,6 +41,8 @@ if (!isset($_SESSION['username'])) {
 
     <section class="favorites w3-container">
         <h2 class="w3-center">Favorites</h2>
+        <!--            Listing Saved Favorite Bookmarks   -->
+
         <ul class="w3-center">
         <?php foreach ($favorites as $fav): ?>
             <li><a href="<?php echo htmlspecialchars($fav['url']); ?>" target="_blank"><?php echo htmlspecialchars($fav['title']); ?></a></li>
@@ -63,7 +65,7 @@ if (!isset($_SESSION['username'])) {
                 <input type="text" name="title" id="modalTitle" required><br>
 
                 <label for="url">URL:</label>
-                <input type="url" name="url" id="modalUrl" required placeholder="https://example.com"><br>
+                <input type="text" name="url" id="modalUrl" required placeholder="https://example.com"><br>
 
                 <label>
                     <input type="checkbox" name="favorite" value="1"> Add to Favorites
