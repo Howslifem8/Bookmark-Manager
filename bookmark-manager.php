@@ -2,6 +2,7 @@
 session_start();
 require 'includes/header.php'; // Includes Header for CSS 
 require 'includes/db.php'; // Incdlues Database 
+require_once 'includes/functions.php';
 
 // Check if user logged in -- If not, redirect to index.php 
 if (!isset($_SESSION['username'])) {
@@ -63,10 +64,11 @@ if (!isset($_SESSION['username'])) {
 
                 <label for="title">Title:</label>
                 <input type="text" name="title" id="modalTitle" required><br>
-
+        
+                <?php display_error('long_title'); ?>
                 <label for="url">URL:</label>
                 <input type="text" name="url" id="modalUrl" required placeholder="https://example.com"><br>
-
+                <?php display_error('url_wrong'); ?>
                 <label>
                     <input type="checkbox" name="favorite" value="1"> Add to Favorites
                 </label>

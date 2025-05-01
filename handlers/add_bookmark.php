@@ -1,6 +1,7 @@
 <?php
 session_start();
 require '../includes/db.php';
+require_once '../includes/functions.php';
 
 // if not logged in- redirect back to index 
 if (!isset($_SESSION['user_id'])) {
@@ -16,6 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $raw_title = trim($_POST['title']);
     $title= htmlspecialchars($raw_title, ENT_QUOTES, 'UTF-8');
 
+    if (strlen($raw_title) > 80) {
+        $_SESSION['errors']['long_title'] = "Please modify title to be less than 80 characters.";
+    }
+
+
+    
     //Sanatize URL
 
     $url= trim($_POST['url']);
@@ -26,8 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     //Validate URL structure 
-    if (!filter_var($url, FILTER_VALIDATE_URL)) {
-        $_SESSION['errors']['url_wrong'] = "Invalid URL format.";
+// Validate URL structure
+    if (
+        !filter_var($url, FILTER_VALIDATE_URL) ||
+        !preg_match('/\.[a-z]{2,}$/i', parse_url($url, PHP_URL_HOST))
+    ) {
+        $_SESSION['errors']['url_wrong'] = "Please enter a valid URL with a domain like .com or .org.";
         header("Location: ../bookmark-manager.php");
         exit();
     }
@@ -51,6 +62,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
 }
-
- 
-

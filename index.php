@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'includes/header.php';
+require_once 'includes/functions.php';
 ?>
 
 <html>
@@ -16,6 +17,7 @@ include 'includes/header.php';
         <label for="username" class="">Email:</label><br>
         <input type="text" id="email" name="email" class=""><br>
         <?php 
+        display_error('no_email_found'); 
         if (isset($_SESSION['errors']['no_email_found'])){
             echo "<p style='color:red'>" . $_SESSION['errors']['no_email_found'] . "</p>";
         }
