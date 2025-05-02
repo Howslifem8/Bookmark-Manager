@@ -14,15 +14,23 @@ if (!isset($_SESSION['username'])) {
 
 <!-- GRABBING REQUIRED DATA (Favorites Section)  -->
 <?php 
+    //User Identity 
     $user_id = $_SESSION['user_id'];
 
-    $stmt = $pdo->prepare("SELECT title, url FROM bookmarks WHERE user_id = ?");
+    // Creating favorites Array
+    $stmt = $pdo->prepare("SELECT title, url FROM bookmarks WHERE user_id = ? AND favorite = 1");
     $stmt->execute([$user_id]);
-    $result = $stmt->fetchAll(); // PDO fetches all at once
+    $result = $stmt->fetchAll();
     
-    // Creating array for favorites
-    $favorites = $result; // No need for a while loop with fetch_assoc
     
+    $favorites = $result;
+    
+    // Creating Groups Array 
+    $stmt = $pdo->prepare("SELECT group_id, group_title FROM groups WHERE user_id = ?");
+    $stmt->execute([$user_id]);
+    $result = $stmt->fetchAll();
+
+    $groups = $result; 
 ?> 
 
 
@@ -98,13 +106,37 @@ if (!isset($_SESSION['username'])) {
     </section>
 
     <section class="Custom Groups w3-container w3-center">
-        <h2 class="w3-center">Last Visited</h2>
-        <!-- <ul>
-        <?php foreach ($favorites as $fav): ?>
-            <li><a href="<?php echo htmlspecialchars($fav['url']); ?>" target="_blank"><?php echo htmlspecialchars($fav['title']); ?></a></li>
-        <?php endforeach; ?>
-        </ul> -->
+        <h2 class="w3-center">Custom Groups</h2>
+        
+  
 
+
+
+        <?php foreach ($groups as $grp): ?>
+            <div class="w3-card card-padding">
+            <h2 class="grp_title"><?php echo htmlspecialchars($grp['group_title']); ?> </h2>
+
+            <!-- Copy of favorite bookmarks -->
+            <ul class="w3-center">
+            <?php foreach ($favorites as $fav): ?>
+                <li><a href="<?php echo htmlspecialchars($fav['url']); ?>" target="_blank"><?php echo htmlspecialchars($fav['title']); ?></a></li>
+            <?php endforeach; ?>
+
+            <li onclick="openAddBookmarkModal(<?php echo $grp['group_id']; ?>)">
+                <a href="javascript:void(0)">+ Add Bookmark</a>
+            </li>
+            </ul>
+
+            
+            </div>
+        <?php endforeach; ?>
+        
+
+        <div class="w3-card">
+                <h2>Add Group</h2>
+
+
+        </div>
     </section>
 
 </body>

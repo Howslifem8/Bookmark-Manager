@@ -46,11 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     
     //Injecting data. 
-    $stmt = $pdo->prepare("INSERT INTO bookmarks (user_id, group_id, title, url) VALUES (?, ?, ?, ?)");
     $group_id = isset($_POST['group_id']) ? (int)$_POST['group_id'] : null;
-
+    $favorite = isset($_POST['favorite']) ? 1 : 0;
+    
+    $stmt = $pdo->prepare("INSERT INTO bookmarks (user_id, group_id, title, url, favorite) VALUES (?, ?, ?, ?, ?)");
+    
     try {
-        $stmt->execute([$user_id, $group_id, $title, $url]);
+        $stmt->execute([$user_id, $group_id, $title, $url, $favorite]);
         $_SESSION['success'] = "Bookmark added successfully.";
     } catch (PDOException $e) {
         $_SESSION['errors']['db'] = "Database error: " . $e->getMessage();

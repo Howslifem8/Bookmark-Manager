@@ -81,10 +81,8 @@ h1, h2 {
     transition: opacity 0.5s ease-out;
 }
 
-/* .add-btn{
-    position:absolute;
-
-} */
-
+.card-padding{
+    padding-bottom: 1rem;
+}
 
   
