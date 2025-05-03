@@ -31,6 +31,12 @@ if (!isset($_SESSION['username'])) {
     $result = $stmt->fetchAll();
 
     $groups = $result; 
+
+    //Creating an array to group bookmarks with respective group_id 
+    $stmt = $pdo->prepare("SELECT bookmark_id, title, url, group_id FROM bookmarks WHERE user_id = ? AND group_id IS NOT NULL");
+    $stmt->execute([$user_id]);
+    $groupedBookmarks = $stmt->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
+
 ?> 
 
 
@@ -56,12 +62,13 @@ if (!isset($_SESSION['username'])) {
         <?php foreach ($favorites as $fav): ?>
             <li><a href="<?php echo htmlspecialchars($fav['url']); ?>" target="_blank"><?php echo htmlspecialchars($fav['title']); ?></a></li>
         <?php endforeach; ?>
+
         <li onclick="openAddBookmarkModal()">
             <a href="javascript:void(0)">+ Add Bookmark</a>
         </li>
 
         </ul>
-            <!-- Modal (hidden by default) -->
+            <!-- Form (hidden by default) -->
         <div id="addBookmarkModal" style="display:none;" class="add-bookmark-form  w3-auto">
             <form method="POST"  action="handlers/add_bookmark.php">
 
@@ -132,12 +139,28 @@ if (!isset($_SESSION['username'])) {
         <?php endforeach; ?>
         
 
-        <div class="w3-card">
-                <h2>Add Group</h2>
+        <div class="w3-card w3-btn">
+                <h2 onclick="openAddGroupForm()">Add Group</h2>
+        </div>
+        <div id="addGroupForm" style="display:none;" class="add-bookmark-form  w3-auto">
+            <form class="w3-card w3-auto" method="POST"  action="handlers/add_group.php">
+                <button type="button" class="cancel-btn" onclick="closeGroupForm" aria-label="Close">&#10006;</button>
+                <h3 class="w3-center" style="margin-top: 0px;">Add Custom Group</h3>
 
+                <input type="hidden" name="group_id" id="modalGroupId"> <!-- dynamic group_id -->
 
+                <label for="title">Title:</label>
+                <input type="text" name="group_title" id="modalTitle" required><br>
+
+                <button type="submit" class="add-btn" style="margin-top: 1rem;">Add Group</button>
+                <?php
+                display_success();
+                ?>
+
+            </form>
         </div>
     </section>
+
 
 </body>
 

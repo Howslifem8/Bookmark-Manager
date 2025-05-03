@@ -46,7 +46,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     
     //Injecting data. 
-    $group_id = isset($_POST['group_id']) ? (int)$_POST['group_id'] : null;
+
+    if(!empty($_POST['group_id'])) {
+        $group_id = (int) $_POST['group_id'];
+    } else {
+        $group_id = null;
+    }
+    
+    // $group_id = isset($_POST['group_id']) ? (int)$_POST['group_id'] : null;
     $favorite = isset($_POST['favorite']) ? 1 : 0;
     
     $stmt = $pdo->prepare("INSERT INTO bookmarks (user_id, group_id, title, url, favorite) VALUES (?, ?, ?, ?, ?)");
