@@ -33,9 +33,18 @@ if (!isset($_SESSION['username'])) {
     $groups = $result; 
 
     //Creating an array to group bookmarks with respective group_id 
-    $stmt = $pdo->prepare("SELECT bookmark_id, title, url, group_id FROM bookmarks WHERE user_id = ? AND group_id IS NOT NULL");
+    $stmt = $pdo->prepare("
+    SELECT bookmark_id, title, url, group_id
+    FROM bookmarks
+    WHERE user_id = ? AND group_id IS NOT NULL
+    ");
     $stmt->execute([$user_id]);
-    $groupedBookmarks = $stmt->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
+
+    $groupedBookmarks = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $groupedBookmarks[$row['group_id']][] = $row;
+    }
+
 
 ?> 
 
@@ -118,25 +127,36 @@ if (!isset($_SESSION['username'])) {
   
 
 
-
         <?php foreach ($groups as $grp): ?>
             <div class="w3-card card-padding">
-            <h2 class="grp_title"><?php echo htmlspecialchars($grp['group_title']); ?> </h2>
+                <h2 class="grp_title"><?php echo htmlspecialchars($grp['group_title']); ?></h2>
 
-            <!-- Copy of favorite bookmarks -->
-            <ul class="w3-center">
-            <?php foreach ($favorites as $fav): ?>
-                <li><a href="<?php echo htmlspecialchars($fav['url']); ?>" target="_blank"><?php echo htmlspecialchars($fav['title']); ?></a></li>
-            <?php endforeach; ?>
+                <ul class="w3-center">
+                    <?php
+                        $gid = $grp['group_id'];
+                        if (isset($groupedBookmarks[$gid])):
+                            foreach ($groupedBookmarks[$gid] as $bookmark):
+                    ?>
+                        <li>
+                            <a href="<?php echo htmlspecialchars($bookmark['url']); ?>" target="_blank">
+                                <?php echo htmlspecialchars($bookmark['title']); ?>
+                            </a>
+                        </li>
+                    <?php
+                            endforeach;
+                        else:
+                    ?>
+                        <li><em>No bookmarks yet</em></li>
+                    <?php endif; ?>
 
-            <li onclick="openAddBookmarkModal(<?php echo $grp['group_id']; ?>)">
-                <a href="javascript:void(0)">+ Add Bookmark</a>
-            </li>
-            </ul>
-
-            
+                    <li onclick="openAddBookmarkModal(<?php echo $grp['group_id']; ?>)">
+                        <a href="javascript:void(0)">+ Add Bookmark</a>
+                    </li>
+                </ul>
             </div>
         <?php endforeach; ?>
+
+
         
 
         <div class="w3-card w3-btn">
