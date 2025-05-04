@@ -2,15 +2,45 @@
 
 //Funtion opens in-line 'modal' to add bookmarks. 
 function openAddBookmarkModal(groupId = null) {
-    if (groupId !== null) {
-        document.getElementById('modalGroupId').value = groupId;
-    }
-    document.getElementById('addBookmarkModal').style.display = 'block';
+ 
+    // document.getElementById('addBookmarkModal').style.display = 'block';
+
+    const li =document.createElement('li');
+    const groupList = document.getElementById('group-list-' + groupId);
+    li.id='inlineBookmarkForm';
+    li.innerHTML = `
+        
+        <form method="POST" action="handlers/add_bookmark.php" class="add-bookmark-form w3-auto">
+            <button type="button" class="cancel-btn" onclick="closeBookmarkForm()" aria-label="Close">&#10006;</button>
+            <h3 class="w3-center" style="margin-top: 0px;">Add Bookmark</h3>
+
+            <input type="hidden" name="group_id" value="${groupId}">
+
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="modalTitle" required><br>
+    
+            
+            <label for="url">URL:</label>
+            <input type="text" name="url" id="modalUrl" required placeholder="https://example.com"><br>
+            
+            <label>
+                <input type="checkbox" name="favorite" value="1"> Add to Favorites
+            </label>
+
+            <button type="submit" class="add-btn">Add Bookmark</button>
+            
+
+
+        </form>
+    `;
+    groupList.appendChild(li);
+    console.log(groupList);
+
 }
 
 //Function closes the in-line 'modal' if user chooses to cancel. 
 function closeBookmarkForm() {
-    document.getElementById('addBookmarkModal').style.display = 'none';
+    document.getElementById('inlineBookmarkForm').style.display = 'none';
 }
 
 

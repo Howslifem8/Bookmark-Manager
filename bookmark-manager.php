@@ -78,13 +78,13 @@ if (!isset($_SESSION['username'])) {
 
         </ul>
             <!-- Form (hidden by default) -->
-        <div id="addBookmarkModal" style="display:none;" class="add-bookmark-form  w3-auto">
+        <!-- <div id="addBookmarkModal" style="display:none;" class="add-bookmark-form  w3-auto">
             <form method="POST"  action="handlers/add_bookmark.php">
 
                 <button type="button" class="cancel-btn" onclick="closeBookmarkForm()" aria-label="Close">&#10006;</button>
                 <h3 class="w3-center" style="margin-top: 0px;">Add Bookmark</h3>
 
-                <input type="hidden" name="group_id" id="modalGroupId"> <!-- dynamic group_id -->
+                <input type="hidden" name="group_id" id="modalGroupId"> 
 
                 <label for="title">Title:</label>
                 <input type="text" name="title" id="modalTitle" required><br>
@@ -100,7 +100,7 @@ if (!isset($_SESSION['username'])) {
                 <button type="submit" class="add-btn">Add Bookmark</button>
             
             </form>
-        </div>
+        </div> -->
         <?php 
         //URL Error Handling to User
         display_error('url_wrong'); 
@@ -131,7 +131,7 @@ if (!isset($_SESSION['username'])) {
             <div class="w3-card card-padding">
                 <h2 class="grp_title"><?php echo htmlspecialchars($grp['group_title']); ?></h2>
 
-                <ul class="w3-center">
+                <ul id="group-list-<?= $grp['group_id'] ?>" class="w3-center">
                     <?php
                         $gid = $grp['group_id'];
                         if (isset($groupedBookmarks[$gid])):
@@ -149,8 +149,10 @@ if (!isset($_SESSION['username'])) {
                         <li><em>No bookmarks yet</em></li>
                     <?php endif; ?>
 
-                    <li onclick="openAddBookmarkModal(<?php echo $grp['group_id']; ?>)">
-                        <a href="javascript:void(0)">+ Add Bookmark</a>
+                    <li>
+                    <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
+
+
                     </li>
                 </ul>
             </div>
