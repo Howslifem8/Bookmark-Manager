@@ -1,4 +1,9 @@
 
+//function to open Add Favorite Bookmark to Bookmark Section Form 
+function openAddFavoriteBookmarkForm(){
+    const form = document.getElementById('FavoriteBookmarkForm');
+    form.style.display = 'block';
+}
 
 //Funtion opens in-line 'modal' to add bookmarks. 
 function openAddBookmarkModal(groupId = null) {
@@ -43,7 +48,9 @@ function closeBookmarkForm() {
     document.getElementById('inlineBookmarkForm').style.display = 'none';
 }
 
-
+function closeFavoriteBookmarkForm() {
+    document.getElementById('FavoriteBookmarkForm').style.display = 'none';
+}
 function openAddGroupForm(groupId = null) {
     if (groupId !== null) {
         document.getElementById('modalGroupId').value = groupId;

@@ -62,7 +62,7 @@ if (!isset($_SESSION['username'])) {
     <header> 
         <h1 class="w3-container w3-center">Dynamic Bookmarks</h1>
     </header>
-
+    <hr>
     <section class="favorites w3-container">
         <h2 class="w3-center">Favorites</h2>
         <!--            Listing Saved Favorite Bookmarks   -->
@@ -72,16 +72,17 @@ if (!isset($_SESSION['username'])) {
             <li><a href="<?php echo htmlspecialchars($fav['url']); ?>" target="_blank"><?php echo htmlspecialchars($fav['title']); ?></a></li>
         <?php endforeach; ?>
 
-        <li onclick="openAddBookmarkModal()">
+        <li onclick="openAddFavoriteBookmarkForm()">
             <a href="javascript:void(0)">+ Add Bookmark</a>
         </li>
 
         </ul>
+    <hr>
             <!-- Form (hidden by default) -->
-        <!-- <div id="addBookmarkModal" style="display:none;" class="add-bookmark-form  w3-auto">
+        <div id="FavoriteBookmarkForm" style="display:none;" class="add-bookmark-form  w3-auto">
             <form method="POST"  action="handlers/add_bookmark.php">
 
-                <button type="button" class="cancel-btn" onclick="closeBookmarkForm()" aria-label="Close">&#10006;</button>
+                <button type="button" class="cancel-btn" onclick="closeFavoriteBookmarkForm()" aria-label="Close">&#10006;</button>
                 <h3 class="w3-center" style="margin-top: 0px;">Add Bookmark</h3>
 
                 <input type="hidden" name="group_id" id="modalGroupId"> 
@@ -93,14 +94,14 @@ if (!isset($_SESSION['username'])) {
                 <label for="url">URL:</label>
                 <input type="text" name="url" id="modalUrl" required placeholder="https://example.com"><br>
                 
-                <label>
-                    <input type="checkbox" name="favorite" value="1"> Add to Favorites
-                </label>
+                
+                <input type="hidden" name="favorite" value="1"> 
+                
 
                 <button type="submit" class="add-btn">Add Bookmark</button>
             
             </form>
-        </div> -->
+        </div>
         <?php 
         //URL Error Handling to User
         display_error('url_wrong'); 
@@ -112,16 +113,18 @@ if (!isset($_SESSION['username'])) {
     </section>
 
     <section class="last-visited w3-container w3-center">
+    
         <h2 class="w3-center">Last Visited</h2>
         <!-- <ul>
         <?php foreach ($favorites as $fav): ?>
             <li><a href="<?php echo htmlspecialchars($fav['url']); ?>" target="_blank"><?php echo htmlspecialchars($fav['title']); ?></a></li>
         <?php endforeach; ?>
         </ul> -->
-
+    
     </section>
 
     <section class="Custom Groups w3-container w3-center">
+    <hr>
         <h2 class="w3-center">Custom Groups</h2>
         
   
@@ -181,6 +184,7 @@ if (!isset($_SESSION['username'])) {
 
             </form>
         </div>
+    <hr>
     </section>
 
 

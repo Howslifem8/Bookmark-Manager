@@ -85,4 +85,7 @@ h1, h2 {
     padding-bottom: 1rem;
 }
 
-  
+hr {
+max-width: 80vw;
+margin: 0 auto;
+}
