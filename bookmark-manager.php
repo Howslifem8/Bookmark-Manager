@@ -73,7 +73,14 @@ if (!isset($_SESSION['username'])) {
             <ul id="FavoriteSection" class="w3-center">
                 <?php foreach ($favorites as $fav): ?>
                     <li class="bookmark-item">
-                        <button class="edit-pencil" style="display: none;" onclick="openEditModal('favorite', <?= $fav['bookmark_id'] ?>)">✏️</button>
+                        <button 
+                            class="edit-pencil" 
+                            style="display: none;" 
+                            onclick="openEditModal('favorite', <?= $fav['bookmark_id'] ?>, this)" 
+                            data-title="<?= htmlspecialchars($fav['title']) ?>" 
+                            data-url="<?= htmlspecialchars($fav['url']) ?>"
+                        >✏️</button>
+
                         <a href="<?= htmlspecialchars($fav['url']) ?>" target="_blank">
                             <?= htmlspecialchars($fav['title']) ?>
                         </a>
@@ -138,7 +145,13 @@ if (!isset($_SESSION['username'])) {
 
                 <div class="group-header">
                     <h2 class="group-title"><?= htmlspecialchars($grp['group_title']) ?></h2>
-                    <button class="edit-pencil" style="display: none;" onclick="openEditModal('group', <?= $grp['group_id'] ?>)">✏️</button>
+                    <button 
+                        class="edit-pencil" 
+                        style="display: none;" 
+                        onclick="openEditModal('group', <?= $grp['group_id'] ?>, this)" 
+                        data-title="<?= htmlspecialchars($grp['group_title']) ?>"
+                    >✏️</button>
+
                     <button class="add-btn" onclick="editSection(<?= $grp['group_id'] ?>, this)" data-editing="false">EDIT</button>
                 </div>
 
@@ -152,7 +165,14 @@ if (!isset($_SESSION['username'])) {
                             <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
                                 <?= htmlspecialchars($bookmark['title']) ?>
                             </a>
-                            <button class="edit-pencil" style="display: none;" onclick="openEditModal('bookmark', <?= $bookmark['bookmark_id'] ?>)">✏️</button>
+                            <button 
+                                class="edit-pencil" 
+                                style="display: none;" 
+                                onclick="openEditModal('bookmark', <?= $bookmark['bookmark_id'] ?>, this)" 
+                                data-title="<?= htmlspecialchars($bookmark['title']) ?>" 
+                                data-url="<?= htmlspecialchars($bookmark['url']) ?>"
+                            >✏️</button>
+
                         </li>
                     <?php
                             endforeach;
@@ -196,6 +216,16 @@ if (!isset($_SESSION['username'])) {
     <hr>
     </section>
 
+
+        <!-- Dynamic Editing Modal  -->
+        <div id="editModalContainer" class="w3-modal" style="display: none;">
+    <div class="w3-modal-content w3-card-4 w3-animate-top" style="max-width: 400px; margin: auto;">
+        <span onclick="closeEditModal()" class="w3-button w3-display-topright">&times;</span>
+        <div id="editModalContent" class="w3-container" style="padding: 20px;">
+        <!-- Dynamic content will be inserted here -->
+        </div>
+    </div>
+    </div>
 
 </body>
 

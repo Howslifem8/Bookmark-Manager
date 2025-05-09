@@ -113,3 +113,65 @@ function editSection(groupId = null, btnElement) {
         }
     }
 }
+
+
+// Function to Generate Editing modal 
+function openEditModal(type, id, triggerBtn) {
+    const modalContainer = document.getElementById('editModalContainer');
+    const modalContent = document.getElementById('editModalContent');
+
+    const existingTitle = triggerBtn.dataset.title || '';
+    const existingUrl = triggerBtn.dataset.url || '';
+
+    modalContent.innerHTML = '';
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'handlers/edit_modal_handler.php';
+
+    form.innerHTML += `
+        <input type="hidden" name="type" value="${type}">
+        <input type="hidden" name="id" value="${id}">
+    `;
+
+    if (type === 'favorite' || type === 'bookmark') {
+        form.innerHTML += `
+            <label>Title:</label>
+            <input type="text" name="title" placeholder="${existingTitle}" required><br>
+
+            <label>URL:</label>
+            <input type="text" name="url" placeholder="${existingUrl}" required><br>
+
+            <label>
+                <input type="checkbox" name="delete" value="1">
+                ${type === 'favorite' ? 'Remove from Favorites' : 'Remove from Group'}
+            </label><br>
+        `;
+    }
+
+    if (type === 'group') {
+        form.innerHTML += `
+            <label>Group Title:</label>
+            <input type="text" name="group_title" placeholder="${existingTitle}" required><br>
+
+            <label>
+                <input type="checkbox" name="delete_group" value="1">
+                Delete group and all bookmarks
+            </label><br>
+        `;
+    }
+
+    form.innerHTML += `
+        <button type="submit" class="w3-button w3-green" style="margin-top: 1rem;">Save Changes</button>
+        <button type="button" class="w3-button w3-red" onclick="closeEditModal()">Cancel</button>
+    `;
+
+    modalContent.appendChild(form);
+    modalContainer.style.display = 'block';
+}
+
+//Closes Editing Modal 
+function closeEditModal() {
+    const modal = document.getElementById('editModalContainer');
+    modal.style.display = 'none';
+}
