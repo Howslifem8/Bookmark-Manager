@@ -62,3 +62,54 @@ function openAddGroupForm(groupId = null) {
 function closeGroupForm() {
     document.getElementById('addGroupForm').style.display = 'none';
 }
+
+function editSection(groupId=null){
+
+    const groupList = document.getElementById('group-list-' + groupId);
+
+}
+
+
+
+//Function to Edit a Section 
+
+function editSection(groupId = null, btnElement) {
+    const isEditing = btnElement.dataset.editing === "true";
+
+    // Update button label and state
+    btnElement.textContent = isEditing ? "EDIT" : "CANCEL";
+    btnElement.dataset.editing = isEditing ? "false" : "true";
+
+    // Determine the section we’re editing
+    let targetSection;
+    if (groupId === null) {
+        // Favorites section
+        targetSection = document.getElementById("FavoriteSection");
+    } else {
+        targetSection = document.querySelector(`.group-section[data-group-id="${groupId}"]`);
+    }
+
+    if (!targetSection) return;
+
+    // Toggle pencil icons within the section
+    const pencils = targetSection.querySelectorAll(".edit-pencil");
+
+    pencils.forEach((icon) => {
+        if (isEditing) {
+            icon.style.display = "none";
+            icon.disabled = true;
+        } else {
+            icon.style.display = "inline-block";
+            icon.disabled = false;
+        }
+    });
+
+    // Special handling for group title pencil if custom group
+    if (groupId !== null) {
+        const titlePencil = targetSection.querySelector(".group-title + .edit-pencil");
+        if (titlePencil) {
+            titlePencil.style.display = isEditing ? "none" : "inline-block";
+            titlePencil.disabled = isEditing;
+        }
+    }
+}

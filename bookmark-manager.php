@@ -18,7 +18,7 @@ if (!isset($_SESSION['username'])) {
     $user_id = $_SESSION['user_id'];
 
     // Creating favorites Array
-    $stmt = $pdo->prepare("SELECT title, url FROM bookmarks WHERE user_id = ? AND favorite = 1");
+    $stmt = $pdo->prepare("SELECT title, url, bookmark_id FROM bookmarks WHERE user_id = ? AND favorite = 1");
     $stmt->execute([$user_id]);
     $result = $stmt->fetchAll();
     
@@ -64,54 +64,57 @@ if (!isset($_SESSION['username'])) {
     </header>
     <hr>
     <section class="favorites w3-container">
-        <h2 class="w3-center">Favorites</h2>
-        <!--            Listing Saved Favorite Bookmarks   -->
+        <div class="w3-card card-padding group-section" data-group-id="favorites">
+            <div class="group-header w3-center">
+                <h2 class="group-title ">Favorites</h2>
+                <button class="add-btn" onclick="editSection(null, this)" data-editing="false">EDIT</button>
+            </div>
 
-        <ul class="w3-center">
-        <?php foreach ($favorites as $fav): ?>
-            <li><a href="<?php echo htmlspecialchars($fav['url']); ?>" target="_blank"><?php echo htmlspecialchars($fav['title']); ?></a></li>
-        <?php endforeach; ?>
+            <ul id="FavoriteSection" class="w3-center">
+                <?php foreach ($favorites as $fav): ?>
+                    <li class="bookmark-item">
+                        <button class="edit-pencil" style="display: none;" onclick="openEditModal('favorite', <?= $fav['bookmark_id'] ?>)">✏️</button>
+                        <a href="<?= htmlspecialchars($fav['url']) ?>" target="_blank">
+                            <?= htmlspecialchars($fav['title']) ?>
+                        </a>
+                        
+                    </li>
+                <?php endforeach; ?>
 
-        <li onclick="openAddFavoriteBookmarkForm()">
-            <a href="javascript:void(0)">+ Add Bookmark</a>
-        </li>
+                <li>
+                    <a href="javascript:void(0)" onclick="openAddFavoriteBookmarkForm()">+ Add Bookmark</a>
+                </li>
+            </ul>
+        </div>
 
-        </ul>
-    <hr>
-            <!-- Form (hidden by default) -->
-        <div id="FavoriteBookmarkForm" style="display:none;" class="add-bookmark-form  w3-auto">
-            <form method="POST"  action="handlers/add_bookmark.php">
-
+        <!-- Hidden Favorite Bookmark Form -->
+        <div id="FavoriteBookmarkForm" style="display:none;" class="add-bookmark-form w3-auto">
+            <form method="POST" action="handlers/add_bookmark.php">
                 <button type="button" class="cancel-btn" onclick="closeFavoriteBookmarkForm()" aria-label="Close">&#10006;</button>
                 <h3 class="w3-center" style="margin-top: 0px;">Add Bookmark</h3>
 
-                <input type="hidden" name="group_id" id="modalGroupId"> 
+                <input type="hidden" name="group_id" id="modalGroupId">
+                <input type="hidden" name="favorite" value="1">
 
                 <label for="title">Title:</label>
                 <input type="text" name="title" id="modalTitle" required><br>
-        
-                
+
                 <label for="url">URL:</label>
                 <input type="text" name="url" id="modalUrl" required placeholder="https://example.com"><br>
-                
-                
-                <input type="hidden" name="favorite" value="1"> 
-                
 
                 <button type="submit" class="add-btn">Add Bookmark</button>
-            
             </form>
         </div>
-        <?php 
-        //URL Error Handling to User
-        display_error('url_wrong'); 
-        display_error('long_title');
-        display_error('url_wrong');
-        display_error('db');
-        display_success();
+
+        <?php
+            display_error('url_wrong'); 
+            display_error('long_title');
+            display_error('db');
+            display_success();
         ?>
     </section>
 
+    <hr style="margin-top: 1rem;">
     <section class="last-visited w3-container w3-center">
     
         <h2 class="w3-center">Last Visited</h2>
@@ -129,10 +132,15 @@ if (!isset($_SESSION['username'])) {
         
   
 
-
+        
         <?php foreach ($groups as $grp): ?>
-            <div class="w3-card card-padding">
-                <h2 class="grp_title"><?php echo htmlspecialchars($grp['group_title']); ?></h2>
+            <div class="w3-card card-padding group-section" data-group-id="<?= $grp['group_id'] ?>">
+
+                <div class="group-header">
+                    <h2 class="group-title"><?= htmlspecialchars($grp['group_title']) ?></h2>
+                    <button class="edit-pencil" style="display: none;" onclick="openEditModal('group', <?= $grp['group_id'] ?>)">✏️</button>
+                    <button class="add-btn" onclick="editSection(<?= $grp['group_id'] ?>, this)" data-editing="false">EDIT</button>
+                </div>
 
                 <ul id="group-list-<?= $grp['group_id'] ?>" class="w3-center">
                     <?php
@@ -140,10 +148,11 @@ if (!isset($_SESSION['username'])) {
                         if (isset($groupedBookmarks[$gid])):
                             foreach ($groupedBookmarks[$gid] as $bookmark):
                     ?>
-                        <li>
-                            <a href="<?php echo htmlspecialchars($bookmark['url']); ?>" target="_blank">
-                                <?php echo htmlspecialchars($bookmark['title']); ?>
+                        <li class="bookmark-item">
+                            <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
+                                <?= htmlspecialchars($bookmark['title']) ?>
                             </a>
+                            <button class="edit-pencil" style="display: none;" onclick="openEditModal('bookmark', <?= $bookmark['bookmark_id'] ?>)">✏️</button>
                         </li>
                     <?php
                             endforeach;
@@ -153,13 +162,13 @@ if (!isset($_SESSION['username'])) {
                     <?php endif; ?>
 
                     <li>
-                    <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
-
-
+                        <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
                     </li>
                 </ul>
+
             </div>
         <?php endforeach; ?>
+
 
 
         
