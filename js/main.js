@@ -127,10 +127,10 @@ function openEditModal(type, id, triggerBtn) {
 
     const form = document.createElement('form');
     form.method = 'POST';
-    form.action = 'handlers/edit_modal_handler.php';
+    form.action = 'handlers/edit_handler.php';
 
     form.innerHTML += `
-        <input type="hidden" name="type" value="${type}">
+        <input type="hidden" name="type" value="${type}">              
         <input type="hidden" name="id" value="${id}">
     `;
 
@@ -143,20 +143,20 @@ function openEditModal(type, id, triggerBtn) {
             <input type="text" name="url" placeholder="${existingUrl}" required><br>
 
             <label>
-                <input type="checkbox" name="delete" value="1">
+                <input type="checkbox" name="remove" value="1">
                 ${type === 'favorite' ? 'Remove from Favorites' : 'Remove from Group'}
             </label><br>
         `;
     }
 
-    if (type === 'group') {
+    if (type === 'group') {             
         form.innerHTML += `
             <label>Group Title:</label>
             <input type="text" name="group_title" placeholder="${existingTitle}" required><br>
 
             <label>
                 <input type="checkbox" name="delete_group" value="1">
-                Delete group and all bookmarks
+                Delete group and remove associated bookmarks. 
             </label><br>
         `;
     }

@@ -180,6 +180,10 @@ if (!isset($_SESSION['username'])) {
                     ?>
                         <li><em>No bookmarks yet</em></li>
                     <?php endif; ?>
+                    
+                    <?php display_error('deletion_success'); ?>
+                    
+
 
                     <li>
                         <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
@@ -194,7 +198,7 @@ if (!isset($_SESSION['username'])) {
         
 
         <div class="w3-card w3-btn">
-                <h2 onclick="openAddGroupForm()">Add Group</h2>
+                <h2 onclick="openAddGroupForm()">Add Group</h2> 
         </div>
         <div id="addGroupForm" style="display:none;" class="add-bookmark-form  w3-auto">
             <form class="w3-card w3-auto" method="POST"  action="handlers/add_group.php">
