@@ -1,8 +1,27 @@
 body {
-    background-color: #7E9AB6;
-    font-family: sans-serif;
+    background-color: #3e556e;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 1rem;
 }
-  
+/* Header Title */
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.3rem;
+}
+
+/* Subtitle under the app title */
+.subtitle {
+    font-size: 0.9rem;
+    text-align: center;
+    color: #cfcfcf;
+    margin-top: -8px;
+    margin-bottom: 1rem;
+}
+/* List item styling */
 ul {
     list-style-type: none;
     padding-left: 0;
@@ -18,21 +37,27 @@ li a {
     text-decoration: none;
     color: #333;
 }
-  
-h1, h2 {
-    color: #333;
+
+/* Section Cards */
+.group-section {
+    background-color: #243447;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.add-bookmark-form {
-    position: relative;
-    background-color: white;
-    padding: 1em;
-    border-radius: 8px;
-    margin-top: 0.5em;
-    width: fit-content;
-    padding-top: 2.5em;
+/* Section Titles */
+.group-title, h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #fff;
 }
 
+
+/* Btns */
 .cancel-btn {
     position: absolute;
     top: 0.5em;
@@ -53,6 +78,7 @@ h1, h2 {
     color: red;
 }
 
+/* Error Messages Style Handling  */
 .success-message {
     max-width: 500px;            
     width: 90%;                  
@@ -81,11 +107,179 @@ h1, h2 {
     transition: opacity 0.5s ease-out;
 }
 
-.card-padding{
-    padding-bottom: 1rem;
-}
-
+/* Sectional Spacing  */
 hr {
 max-width: 80vw;
 margin: 0 auto;
+}
+
+/* Bookmark Styling  */
+.bookmark-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 55vw; 
+    width: 100%;
+    margin: 0 auto 0.5rem auto;
+    padding: 0.5rem 1rem;
+    background-color: #ffffff;  
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.bookmark-item a {
+    flex-grow: 1;
+    text-align: center;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+    color: #333;
+}
+
+
+/* Styling Pencil Edit Buttons  */
+.bookmark-item .edit-pencil {
+    margin-left: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+
+/* Styling Edit Form 'modal' */
+#editModalContainer .w3-modal-content {
+    background-color: #ffffff;
+    color: #333;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#editModalContent label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+#editModalContent input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styling Add-Bookmark Form 'modal' */
+.add-bookmark-form {
+    background-color: #ffffff;
+    color: #333;
+    padding: 1.5rem 1rem 1rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+}
+
+.add-bookmark-form h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.add-bookmark-form label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.add-bookmark-form input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-bookmark-form input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.add-bookmark-form .add-btn {
+    background-color: #2d9cdb;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    margin-top: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background 0.3s;
+}
+
+.add-bookmark-form .add-btn:hover {
+    background-color: #1a7fb8;
+}
+
+/* Styling Add-Group Form 'modal' */
+#addGroupForm {
+    background-color: #ffffff;
+    color: #333;
+    padding: 1.5rem 1rem 1rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 400px;
+    margin: 1rem auto;
+    position: relative;
+    text-align: left;
+}
+
+#addGroupForm h3 {
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+#addGroupForm label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+#addGroupForm input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#addGroupForm .add-btn {
+    background-color: #2d9cdb;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    margin-top: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background 0.3s;
+}
+
+#addGroupForm .add-btn:hover {
+    background-color: #1a7fb8;
 }

@@ -106,7 +106,7 @@ function editSection(groupId = null, btnElement) {
 
     // Special handling for group title pencil if custom group
     if (groupId !== null) {
-        const titlePencil = targetSection.querySelector(".group-title + .edit-pencil");
+        const titlePencil = targetSection.querySelector(".edit-pencil[data-title]");
         if (titlePencil) {
             titlePencil.style.display = isEditing ? "none" : "inline-block";
             titlePencil.disabled = isEditing;
@@ -137,10 +137,10 @@ function openEditModal(type, id, triggerBtn) {
     if (type === 'favorite' || type === 'bookmark') {
         form.innerHTML += `
             <label>Title:</label>
-            <input type="text" name="title" placeholder="${existingTitle}" required><br>
+            <input type="text" name="title" value="${existingTitle}" required><br>
 
             <label>URL:</label>
-            <input type="text" name="url" placeholder="${existingUrl}" required><br>
+            <input type="text" name="url" value="${existingUrl}" required><br>
 
             <label>
                 <input type="checkbox" name="remove" value="1">
@@ -175,3 +175,5 @@ function closeEditModal() {
     const modal = document.getElementById('editModalContainer');
     modal.style.display = 'none';
 }
+
+

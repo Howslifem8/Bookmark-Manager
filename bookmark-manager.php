@@ -55,14 +55,15 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     
-    <title>Dynamic Bookmarks</title>
+    <title>Booksyde</title>
 </head>
 <body>
 
     <header> 
-        <h1 class="w3-container w3-center">Dynamic Bookmarks</h1>
+        <h1 class="w3-center group-title" style="margin-bottom: 0;">Booksyde</h1>
+        <h2 class="w3-center subtitle" style="Font-size: 1.2rem; margin-top: 0;">(Free Bookmark Manager)</h2>
     </header>
-    <hr>
+    <hr style="margin-bottom: 2rem;">
     <section class="favorites w3-container">
         <div class="w3-card card-padding group-section" data-group-id="favorites">
             <div class="group-header w3-center">
@@ -89,7 +90,7 @@ if (!isset($_SESSION['username'])) {
                 <?php endforeach; ?>
 
                 <li>
-                    <a href="javascript:void(0)" onclick="openAddFavoriteBookmarkForm()">+ Add Bookmark</a>
+                    <a href="javascript:void(0)" onclick="openAddFavoriteBookmarkForm()" class="add-btn">+ Add Bookmark</a>
                 </li>
             </ul>
         </div>
@@ -121,24 +122,20 @@ if (!isset($_SESSION['username'])) {
         ?>
     </section>
 
-    <hr style="margin-top: 1rem;">
+    <!-- <hr style="margin-top: 1rem;">
     <section class="last-visited w3-container w3-center">
     
         <h2 class="w3-center">Last Visited</h2>
-        <!-- <ul>
-        <?php foreach ($favorites as $fav): ?>
-            <li><a href="<?php echo htmlspecialchars($fav['url']); ?>" target="_blank"><?php echo htmlspecialchars($fav['title']); ?></a></li>
-        <?php endforeach; ?>
-        </ul> -->
     
-    </section>
+    
+    </section> -->
 
     <section class="Custom Groups w3-container w3-center">
     <hr>
         <h2 class="w3-center">Custom Groups</h2>
         
   
-
+                
         
         <?php foreach ($groups as $grp): ?>
             <div class="w3-card card-padding group-section" data-group-id="<?= $grp['group_id'] ?>">
@@ -162,9 +159,6 @@ if (!isset($_SESSION['username'])) {
                             foreach ($groupedBookmarks[$gid] as $bookmark):
                     ?>
                         <li class="bookmark-item">
-                            <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
-                                <?= htmlspecialchars($bookmark['title']) ?>
-                            </a>
                             <button 
                                 class="edit-pencil" 
                                 style="display: none;" 
@@ -172,6 +166,9 @@ if (!isset($_SESSION['username'])) {
                                 data-title="<?= htmlspecialchars($bookmark['title']) ?>" 
                                 data-url="<?= htmlspecialchars($bookmark['url']) ?>"
                             >✏️</button>
+                            <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
+                                <?= htmlspecialchars($bookmark['title']) ?>
+                            </a>
 
                         </li>
                     <?php
@@ -191,39 +188,44 @@ if (!isset($_SESSION['username'])) {
                 </ul>
 
             </div>
+            <hr style="margin-bottom: 2rem;">
         <?php endforeach; ?>
 
 
+                            
 
         
 
         <div class="w3-card w3-btn">
                 <h2 onclick="openAddGroupForm()">Add Group</h2> 
         </div>
-        <div id="addGroupForm" style="display:none;" class="add-bookmark-form  w3-auto">
-            <form class="w3-card w3-auto" method="POST"  action="handlers/add_group.php">
-                <button type="button" class="cancel-btn" onclick="closeGroupForm" aria-label="Close">&#10006;</button>
-                <h3 class="w3-center" style="margin-top: 0px;">Add Custom Group</h3>
 
-                <input type="hidden" name="group_id" id="modalGroupId"> <!-- dynamic group_id -->
 
-                <label for="title">Title:</label>
-                <input type="text" name="group_title" id="modalTitle" required><br>
+       
+        <form id="addGroupForm" style="display:none;" class="w3-auto" class="add-bookmark-form" method="POST" action="handlers/add_group.php">
 
-                <button type="submit" class="add-btn" style="margin-top: 1rem;">Add Group</button>
-                <?php
-                display_success();
-                ?>
+            <button type="button" class="cancel-btn" onclick="closeGroupForm()" aria-label="Close">&#10006;</button>
+            <h3 class="w3-center" style="margin-top: 0px;">Add Custom Group</h3>
 
-            </form>
-        </div>
-    <hr>
+            <input type="hidden" name="group_id" id="modalGroupId"> <!-- dynamic group_id -->
+
+            <label for="title">Title:</label>
+            <input type="text" name="group_title" id="modalTitle" required><br>
+
+            <button type="submit" class="add-btn" style="margin-top: 1rem; margin-bottom: 6rem;">Add Group</button>
+            <?php
+            display_success();
+            ?>
+
+        </form>
+        
+    
     </section>
 
 
         <!-- Dynamic Editing Modal  -->
         <div id="editModalContainer" class="w3-modal" style="display: none;">
-    <div class="w3-modal-content w3-card-4 w3-animate-top" style="max-width: 400px; margin: auto;">
+        <div class="w3-modal-content w3-card-4 w3-animate-top" style="max-width: 400px; margin: auto;">
         <span onclick="closeEditModal()" class="w3-button w3-display-topright">&times;</span>
         <div id="editModalContent" class="w3-container" style="padding: 20px;">
         <!-- Dynamic content will be inserted here -->

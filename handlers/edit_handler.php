@@ -92,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($type === 'group') {
         $delete = isset($_POST['delete_group']);
         $group_id = isset($_POST['group_id']) ? (int) $_POST['group_id'] : null;
+        $group_id = $id; // Since type === 'group'
 
         if ($delete) {
             // 1. Delete the group
@@ -121,12 +122,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 
+    if ($type === 'bookmark') {
+    $remove = isset($_POST['remove']);
 
+    if ($remove) {
+        $stmt = $pdo->prepare("UPDATE bookmarks SET group_id = NULL WHERE bookmark_id = ? AND user_id = ?");
+        $stmt->execute([$id, $user_id]);
 
+        // Smart cleanup
+        $stmt = $pdo->prepare("DELETE FROM bookmarks WHERE favorite = 0 AND group_id IS NULL AND user_id = ?");
+        $stmt->execute([$user_id]);
 
+        $_SESSION['success'] = "Bookmark removed from group.";
+    } else {
+        $stmt = $pdo->prepare("UPDATE bookmarks SET title = ?, url = ? WHERE bookmark_id = ? AND user_id = ?");
+        $stmt->execute([$title, $url, $id, $user_id]);
 
+        $_SESSION['success'] = "Bookmark updated successfully.";
+    }
 
-
+    header("Location: ../bookmark-manager.php");
+    exit();
+    }
 
 
 
