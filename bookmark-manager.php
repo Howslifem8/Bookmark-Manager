@@ -137,80 +137,75 @@ if (!isset($_SESSION['username'])) {
     
     </section> -->
 
-    <section class="Custom Groups w3-container w3-center">
+    <section class="w3-container w3-center">
     
         <h2 class="w3-center">Custom Groups</h2>
         <hr style="margin-bottom: 2rem;">    
   
                 
+        <div class="custom-container">
+            <?php foreach ($groups as $grp): ?>
         
-        <?php foreach ($groups as $grp): ?>
-            <section class="custom-container">
-                <div class="w3-card card-padding group-section" data-group-id="<?= $grp['group_id'] ?>">
-                    
-                    <div class="group-header">
-                        <h2 class="group-title"><?= htmlspecialchars($grp['group_title']) ?></h2>
-                        <button 
-                            class="edit-pencil" 
-                            style="display: none;" 
-                            onclick="openEditModal('group', <?= $grp['group_id'] ?>, this)" 
-                            data-title="<?= htmlspecialchars($grp['group_title']) ?>"
-                        >✏️</button>
+            <div class="w3-card card-padding group-section" data-group-id="<?= $grp['group_id'] ?>">
+                
+                <div class="group-header">
+                    <h2 class="group-title"><?= htmlspecialchars($grp['group_title']) ?></h2>
+                    <button 
+                        class="edit-pencil" 
+                        style="display: none;" 
+                        onclick="openEditModal('group', <?= $grp['group_id'] ?>, this)" 
+                        data-title="<?= htmlspecialchars($grp['group_title']) ?>"
+                    >✏️</button>
 
-                        <button class="add-btn" onclick="editSection(<?= $grp['group_id'] ?>, this)" data-editing="false">EDIT</button>
-                    </div>
-
-                    <ul id="group-list-<?= $grp['group_id'] ?>" class="w3-center">
-                        <?php
-                            $gid = $grp['group_id'];
-                            if (isset($groupedBookmarks[$gid])):
-                                foreach ($groupedBookmarks[$gid] as $bookmark):
-                        ?>
-                            <li class="bookmark-item">
-                                <button 
-                                    class="edit-pencil" 
-                                    style="display: none;" 
-                                    onclick="openEditModal('bookmark', <?= $bookmark['bookmark_id'] ?>, this)" 
-                                    data-title="<?= htmlspecialchars($bookmark['title']) ?>" 
-                                    data-url="<?= htmlspecialchars($bookmark['url']) ?>"
-                                >✏️</button>
-                                <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
-                                    <?= htmlspecialchars($bookmark['title']) ?>
-                                </a>
-
-                            </li>
-                        <?php
-                                endforeach;
-                            else:
-                        ?>
-                            <li><em>No bookmarks yet</em></li>
-                        <?php endif; ?>
-                        
-                        <?php display_error('deletion_success'); ?>
-                        
-
-
-                        <li>
-                            <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
-                        </li>
-                    </ul>
-                                
+                    <button class="add-btn" onclick="editSection(<?= $grp['group_id'] ?>, this)" data-editing="false">EDIT</button>
                 </div>
-            </section>
 
-            <hr style="margin-bottom: 2rem;">
-        <?php endforeach; ?>
+                <ul id="group-list-<?= $grp['group_id'] ?>" class="w3-center">
+                    <?php
+                        $gid = $grp['group_id'];
+                        if (isset($groupedBookmarks[$gid])):
+                            foreach ($groupedBookmarks[$gid] as $bookmark):
+                    ?>
+                        <li class="bookmark-item">
+                            <button 
+                                class="edit-pencil" 
+                                style="display: none;" 
+                                onclick="openEditModal('bookmark', <?= $bookmark['bookmark_id'] ?>, this)" 
+                                data-title="<?= htmlspecialchars($bookmark['title']) ?>" 
+                                data-url="<?= htmlspecialchars($bookmark['url']) ?>"
+                            >✏️</button>
+                            <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
+                                <?= htmlspecialchars($bookmark['title']) ?>
+                            </a>
+
+                        </li>
+                    <?php
+                            endforeach;
+                        else:
+                    ?>
+                        <li><em>No bookmarks yet</em></li>
+                    <?php endif; ?>
+                    
+                    <?php display_error('deletion_success'); ?>
+                    
 
 
+                    <li>
+                        <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
+                    </li>
+                </ul>
                             
+            </div>
 
-        
+
+            <?php endforeach; ?>
+        </div>
 
         <div class="w3-card w3-btn">
                 <h2 onclick="openAddGroupForm()">Add Group</h2> 
         </div>
 
-
+    </section>
        
         <form id="addGroupForm" style="display:none;" class="w3-auto" class="add-bookmark-form" method="POST" action="handlers/add_group.php">
 
@@ -230,7 +225,7 @@ if (!isset($_SESSION['username'])) {
         </form>
         
     
-    </section>
+    
 
 
         <!-- Dynamic Editing Modal  -->
