@@ -7,41 +7,36 @@ function openAddFavoriteBookmarkForm(){
 
 //Funtion opens in-line 'modal' to add bookmarks. 
 function openAddBookmarkModal(groupId = null) {
- 
-    // document.getElementById('addBookmarkModal').style.display = 'block';
-
-    const li =document.createElement('li');
     const groupList = document.getElementById('group-list-' + groupId);
-    li.id='inlineBookmarkForm';
+    
+    // Check if a form already exists inside this group
+    if (groupList.querySelector('.add-bookmark-form')) return;
+
+    const li = document.createElement('li');
+    li.className = 'inlineBookmarkForm'; // use class instead of ID
     li.innerHTML = `
-        
         <form method="POST" action="handlers/add_bookmark.php" class="add-bookmark-form w3-auto">
-            <button type="button" class="cancel-btn" onclick="closeBookmarkForm()" aria-label="Close">&#10006;</button>
+            <button type="button" class="cancel-btn" onclick="this.closest('li').remove()" aria-label="Close">&#10006;</button>
             <h3 class="w3-center" style="margin-top: 0px;">Add Bookmark</h3>
 
             <input type="hidden" name="group_id" value="${groupId}">
 
             <label for="title">Title:</label>
-            <input type="text" name="title" id="modalTitle" required><br>
-    
-            
+            <input type="text" name="title" required><br>
+
             <label for="url">URL:</label>
-            <input type="text" name="url" id="modalUrl" required placeholder="https://example.com"><br>
-            
+            <input type="text" name="url" required placeholder="https://example.com"><br>
+
             <label>
                 <input type="checkbox" name="favorite" value="1"> Add to Favorites
             </label>
 
             <button type="submit" class="add-btn">Add Bookmark</button>
-            
-
-
         </form>
     `;
     groupList.appendChild(li);
-    console.log(groupList);
-
 }
+
 
 //Function closes the in-line 'modal' if user chooses to cancel. 
 function closeBookmarkForm() {
@@ -156,14 +151,16 @@ function openEditModal(type, id, triggerBtn) {
 
             <label>
                 <input type="checkbox" name="delete_group" value="1">
-                Delete group and remove associated bookmarks. 
+                Delete group and remove associated bookmarks. (Type in Title to confirm)
             </label><br>
         `;
     }
 
     form.innerHTML += `
-        <button type="submit" class="w3-button w3-green" style="margin-top: 1rem;">Save Changes</button>
-        <button type="button" class="w3-button w3-red" onclick="closeEditModal()">Cancel</button>
+        <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem;">
+            <button type="submit" class="w3-button w3-green">Save Changes</button>
+            <button type="button" class="w3-button w3-red" onclick="closeEditModal()">Cancel</button>
+        </div>
     `;
 
     modalContent.appendChild(form);

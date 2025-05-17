@@ -316,6 +316,21 @@ margin: 0 auto;
     align-content: center;
 }
 
+#footer-btn{
+    background-color: rgb(8, 50, 81);
+    margin-top: 2rem;
+    border-style: double;
+}
+
+.add-bookmark-footer li {
+    list-style-type: none;
+}
+
+.add-bookmark-footer {
+    margin-top: auto;
+    text-align: center;
+}
+
 @media (min-width: 1024px) {
     .custom-container{
         display: grid;
@@ -329,9 +344,17 @@ margin: 0 auto;
         /* Section Cards */
     .custom-container .group-section {
         width: 100%;
-      
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
 
     }
+
+    .custom-bookmark-list{
+        flex-grow: 1;
+    }
+
 
 
 }

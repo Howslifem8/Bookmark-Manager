@@ -160,48 +160,55 @@ if (!isset($_SESSION['username'])) {
                     <button class="add-btn" onclick="editSection(<?= $grp['group_id'] ?>, this)" data-editing="false">EDIT</button>
                 </div>
 
-                <ul id="group-list-<?= $grp['group_id'] ?>" class="w3-center">
-                    <?php
-                        $gid = $grp['group_id'];
-                        if (isset($groupedBookmarks[$gid])):
-                            foreach ($groupedBookmarks[$gid] as $bookmark):
-                    ?>
-                        <li class="bookmark-item">
-                            <button 
-                                class="edit-pencil" 
-                                style="display: none;" 
-                                onclick="openEditModal('bookmark', <?= $bookmark['bookmark_id'] ?>, this)" 
-                                data-title="<?= htmlspecialchars($bookmark['title']) ?>" 
-                                data-url="<?= htmlspecialchars($bookmark['url']) ?>"
-                            >✏️</button>
-                            <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
-                                <?= htmlspecialchars($bookmark['title']) ?>
-                            </a>
+                <div class="custom-bookmark-list">
+                    <ul id="group-list-<?= $grp['group_id'] ?>" class="w3-center">
+                        <?php
+                            $gid = $grp['group_id'];
+                            if (isset($groupedBookmarks[$gid])):
+                                foreach ($groupedBookmarks[$gid] as $bookmark):
+                        ?>
+                            <li class="bookmark-item">
+                                <button 
+                                    class="edit-pencil" 
+                                    style="display: none;" 
+                                    onclick="openEditModal('bookmark', <?= $bookmark['bookmark_id'] ?>, this)" 
+                                    data-title="<?= htmlspecialchars($bookmark['title']) ?>" 
+                                    data-url="<?= htmlspecialchars($bookmark['url']) ?>"
+                                >✏️</button>
+                                <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
+                                    <?= htmlspecialchars($bookmark['title']) ?>
+                                </a>
 
+                            </li>
+                        <?php
+                                endforeach;
+                            else:
+                        ?>
+                            <li><em>No bookmarks yet</em></li>
+                        <?php endif; ?>
+                        
+                        <?php display_error('deletion_success'); ?>
+                        
+
+
+                       
+                    </ul>
+                </div>  
+
+                <div class="add-bookmark-footer">
+                        <li>
+                            <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
                         </li>
-                    <?php
-                            endforeach;
-                        else:
-                    ?>
-                        <li><em>No bookmarks yet</em></li>
-                    <?php endif; ?>
-                    
-                    <?php display_error('deletion_success'); ?>
-                    
+                </div>
+       
 
-
-                    <li>
-                        <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
-                    </li>
-                </ul>
-                            
             </div>
 
 
             <?php endforeach; ?>
         </div>
 
-        <div class="w3-card w3-btn">
+        <div id="footer-btn" class="w3-card w3-btn" >
                 <h2 onclick="openAddGroupForm()">Add Group</h2> 
         </div>
 
