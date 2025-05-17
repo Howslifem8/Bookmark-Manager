@@ -59,10 +59,17 @@ if (!isset($_SESSION['username'])) {
 </head>
 <body>
 
-    <header> 
-        <h1 class="w3-center group-title" style="margin-bottom: 0;">Booksyde</h1>
-        <h2 class="w3-center subtitle" style="Font-size: 1.2rem; margin-top: 0;">(Free Bookmark Manager)</h2>
+    <header class="header-bar">
+        <div class="header-left"></div> <!-- optional spacer -->
+        <div class="header-title">
+            <h1>Booksyde</h1>
+            <p class="subtitle">(Free Bookmark Manager)</p>
+        </div>
+        <div class="header-right">
+            <a href="logout.php" class="logout-btn">Logout</a>
+        </div>
     </header>
+
     <hr style="margin-bottom: 2rem;">
     <section class="favorites w3-container">
         <div class="w3-card card-padding group-section" data-group-id="favorites">
@@ -131,63 +138,66 @@ if (!isset($_SESSION['username'])) {
     </section> -->
 
     <section class="Custom Groups w3-container w3-center">
-    <hr>
+    
         <h2 class="w3-center">Custom Groups</h2>
-        
+        <hr style="margin-bottom: 2rem;">    
   
                 
         
         <?php foreach ($groups as $grp): ?>
-            <div class="w3-card card-padding group-section" data-group-id="<?= $grp['group_id'] ?>">
+            <section class="custom-container">
+                <div class="w3-card card-padding group-section" data-group-id="<?= $grp['group_id'] ?>">
+                    
+                    <div class="group-header">
+                        <h2 class="group-title"><?= htmlspecialchars($grp['group_title']) ?></h2>
+                        <button 
+                            class="edit-pencil" 
+                            style="display: none;" 
+                            onclick="openEditModal('group', <?= $grp['group_id'] ?>, this)" 
+                            data-title="<?= htmlspecialchars($grp['group_title']) ?>"
+                        >✏️</button>
 
-                <div class="group-header">
-                    <h2 class="group-title"><?= htmlspecialchars($grp['group_title']) ?></h2>
-                    <button 
-                        class="edit-pencil" 
-                        style="display: none;" 
-                        onclick="openEditModal('group', <?= $grp['group_id'] ?>, this)" 
-                        data-title="<?= htmlspecialchars($grp['group_title']) ?>"
-                    >✏️</button>
+                        <button class="add-btn" onclick="editSection(<?= $grp['group_id'] ?>, this)" data-editing="false">EDIT</button>
+                    </div>
 
-                    <button class="add-btn" onclick="editSection(<?= $grp['group_id'] ?>, this)" data-editing="false">EDIT</button>
-                </div>
+                    <ul id="group-list-<?= $grp['group_id'] ?>" class="w3-center">
+                        <?php
+                            $gid = $grp['group_id'];
+                            if (isset($groupedBookmarks[$gid])):
+                                foreach ($groupedBookmarks[$gid] as $bookmark):
+                        ?>
+                            <li class="bookmark-item">
+                                <button 
+                                    class="edit-pencil" 
+                                    style="display: none;" 
+                                    onclick="openEditModal('bookmark', <?= $bookmark['bookmark_id'] ?>, this)" 
+                                    data-title="<?= htmlspecialchars($bookmark['title']) ?>" 
+                                    data-url="<?= htmlspecialchars($bookmark['url']) ?>"
+                                >✏️</button>
+                                <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
+                                    <?= htmlspecialchars($bookmark['title']) ?>
+                                </a>
 
-                <ul id="group-list-<?= $grp['group_id'] ?>" class="w3-center">
-                    <?php
-                        $gid = $grp['group_id'];
-                        if (isset($groupedBookmarks[$gid])):
-                            foreach ($groupedBookmarks[$gid] as $bookmark):
-                    ?>
-                        <li class="bookmark-item">
-                            <button 
-                                class="edit-pencil" 
-                                style="display: none;" 
-                                onclick="openEditModal('bookmark', <?= $bookmark['bookmark_id'] ?>, this)" 
-                                data-title="<?= htmlspecialchars($bookmark['title']) ?>" 
-                                data-url="<?= htmlspecialchars($bookmark['url']) ?>"
-                            >✏️</button>
-                            <a href="<?= htmlspecialchars($bookmark['url']) ?>" target="_blank">
-                                <?= htmlspecialchars($bookmark['title']) ?>
-                            </a>
+                            </li>
+                        <?php
+                                endforeach;
+                            else:
+                        ?>
+                            <li><em>No bookmarks yet</em></li>
+                        <?php endif; ?>
+                        
+                        <?php display_error('deletion_success'); ?>
+                        
 
+
+                        <li>
+                            <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
                         </li>
-                    <?php
-                            endforeach;
-                        else:
-                    ?>
-                        <li><em>No bookmarks yet</em></li>
-                    <?php endif; ?>
-                    
-                    <?php display_error('deletion_success'); ?>
-                    
+                    </ul>
+                                
+                </div>
+            </section>
 
-
-                    <li>
-                        <a href="javascript:void(0)" onclick="openAddBookmarkModal(<?= $grp['group_id'] ?>)">+ Add Bookmark</a>
-                    </li>
-                </ul>
-
-            </div>
             <hr style="margin-bottom: 2rem;">
         <?php endforeach; ?>
 

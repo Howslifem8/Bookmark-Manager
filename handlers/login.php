@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require '../includes/db.php'; // database connection
+require '../includes/db.php'; 
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
@@ -22,14 +22,14 @@ if (isset($_POST['login'])) {
             exit();
 
         } else {
-            //passwords not matching 
+            //passwords not matching handling
             echo "Password doesn't match.<br>";
             $_SESSION['errors']['incorrect_password'] = "Incorrect password.";
             header("Location: ../index.php");
             exit();
         }
     } else {
-        //user not found
+        //user not found handling
         echo "user NOT found.<br>";
         $_SESSION['errors']['no_email_found'] = "No user found with that email.";
         header("Location: ../index.php");
