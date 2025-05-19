@@ -6,7 +6,7 @@ require_once 'includes/functions.php';
 
 <html>
 <div class="w3-center intro">
-    <h1>Welcome to your Bookmark Manager.</h1>
+    <h1>Welcome to Booksyde.</h1>
     <h2>Store your bookmarks as you please, for absolutely free. </h2>
     <h3>Please Sign in or Register to get started !</h3>
 </div>
@@ -137,9 +137,36 @@ require_once 'includes/functions.php';
 
     </form>
 
-
-
 </div>
+
+<hr style="margin-top: 4rem;">
+
+<section class="footer-features w3-container w3-center">
+<h1> Learn More About Booksyde Manager</h1>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <?php
 // Clean up success & errors arrays. 

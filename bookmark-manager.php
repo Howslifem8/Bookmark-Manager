@@ -66,7 +66,7 @@ if (!isset($_SESSION['username'])) {
             <p class="subtitle">(Free Bookmark Manager)</p>
         </div>
         <div class="header-right">
-            <a href="logout.php" class="logout-btn">Logout</a>
+            <a href="handlers/logout.php" class="logout-btn">Logout</a>
         </div>
     </header>
 

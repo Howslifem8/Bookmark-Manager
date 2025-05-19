@@ -335,7 +335,7 @@ margin: 0 auto;
     .custom-container{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+        gap: 1rem;
         max-width: 90vw;
         margin: 0 auto;
         padding: 0 1rem;
@@ -355,6 +355,15 @@ margin: 0 auto;
         flex-grow: 1;
     }
 
+    .group-section{
+        margin: 0 auto;
+        max-width: 80%;
+        
+    }
 
-
+    .header-bar{
+        margin: 0 auto;
+        max-width: 70vw;
+        
+    }
 }

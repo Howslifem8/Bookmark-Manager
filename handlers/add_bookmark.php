@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     //Sanatize and Validate Title 
     $raw_title = trim($_POST['title']);
-    $title= htmlspecialchars($raw_title, ENT_QUOTES, 'UTF-8');
+    $title = $raw_title;
 
     if (strlen($raw_title) > 80) {
         $_SESSION['errors']['long_title'] = "Please modify title to be less than 80 characters.";
