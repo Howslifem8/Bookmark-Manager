@@ -11,8 +11,6 @@ Features:
   * Add,edit, and delete bookmarks organized into customer user-created groups. 
 * Favorites Section
   * Highlight and manage a list of favorite bookmarks for quick access.
-* Last Visited Tracker
-  * Automatically records and displays the five most recently visited bookmarks.
 * Responsive Design
   * Mobile-first layout with adaptive desktop support for a seamless user experience across devices.
 * Data Persistence
