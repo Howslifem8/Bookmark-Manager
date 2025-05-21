@@ -62,8 +62,8 @@ if (!isset($_SESSION['username'])) {
     <header class="header-bar">
         <div class="header-left"></div> <!-- optional spacer -->
         <div class="header-title">
-            <h1>Booksyde</h1>
-            <p class="subtitle">(Free Bookmark Manager)</p>
+            <h1>Booksyde Manager</h1>
+            <p class="subtitle">(Freely store links)</p>
         </div>
         <div class="header-right">
             <a href="handlers/logout.php" class="logout-btn">Logout</a>
@@ -139,7 +139,7 @@ if (!isset($_SESSION['username'])) {
 
     <section class="w3-container w3-center">
     
-        <h2 class="w3-center">Custom Groups</h2>
+        <h1 class="w3-center">Custom Groups</h1>
         <hr style="margin-bottom: 2rem;">    
   
                 

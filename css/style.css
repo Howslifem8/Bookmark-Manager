@@ -334,9 +334,9 @@ margin: 0 auto;
 @media (min-width: 1024px) {
     .custom-container{
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1rem;
-        max-width: 90vw;
+        max-width: 70vw;
         margin: 0 auto;
         padding: 0 1rem;
         align-items: stretch;
@@ -365,5 +365,10 @@ margin: 0 auto;
         margin: 0 auto;
         max-width: 70vw;
         
+    }
+
+    .favorites{ 
+        max-width: 90vw;
+        margin: 0 auto;
     }
 }
