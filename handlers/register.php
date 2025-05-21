@@ -39,8 +39,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     //Validate email 
 
+    if (!filter_var($sanitizedemail, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['errors']['invalid_email'] = "Please enter a valid email address.";
+    }
+
     if($originalemail !== $sanitizedemail) {
-        $_SESSION['errors']['invalid_email'] = "Email is not valid.";
+        $_SESSION['errors']['invalid_email'] = "Please enter a valid email address.";
     }
 
     if (empty($sanitizedemail)) {
@@ -107,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     //Final success redirect. 
     if (empty($_SESSION['errors'])){
-        $_SESSION['successful']['register_success'] = "Account Created Successfully.";
+        $_SESSION['success'] = "Account Created Successfully.";
         header("Location: ../index.php");
         exit();
     }

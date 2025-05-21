@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost';         // or your remote DB host
-$db   = 'bookmark_page_crud'; // your database name
-$user = 'bookmark_user';              // your DB username (default for XAMPP is 'root')
-$pass = 'Lrr100303.';                  // your DB password (default for XAMPP is usually empty)
+$host = 'sql309.infinityfree.com';         // or your remote DB host
+$db   = 'if0_39038783_bm_manager'; // your database name
+$user = 'if0_39038783';              // your DB username (default for XAMPP is 'root')
+$pass = 'VQeVbshDgezYW';                  // your DB password (default for XAMPP is usually empty)
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

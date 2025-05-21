@@ -1,25 +1,47 @@
 <?php
 session_start();
 include 'includes/header.php';
+require_once 'includes/functions.php';
 ?>
 
 <html>
 <div class="w3-center intro">
-    <h1>Welcome to your Bookmark Manager.</h1>
+    <h1>Welcome to Booksyde.</h1>
     <h2>Store your bookmarks as you please, for absolutely free. </h2>
     <h3>Please Sign in or Register to get started !</h3>
 </div>
 
 <div class="signin">
     <h1 class="w3-center">Sign in</h1>
-    <form method="POST" action="login.php" class="w3-center">
-        <label for="username" class="">Username:</label><br>
-        <input type="text" id="username" name="username" class=""><br>
+    <form method="POST" action="handlers/login.php" class="w3-center">
+        <label for="username" class="">Email:</label><br>
+        <input type="text" id="email" name="email" class=""><br>
+        <?php 
+        display_error('no_email_found'); 
+        if (isset($_SESSION['errors']['no_email_found'])){
+            echo "<p style='color:red'>" . $_SESSION['errors']['no_email_found'] . "</p>";
+        }
+        ?>
+
+
+
 
         <label for="password" class="">Password:</label><br>
         <input type="text" id="password" name="password" class=""><br>
+        <?php 
+        if (isset($_SESSION['errors']['incorrect_password'])){
+            echo "<p style='color:red'>" . $_SESSION['errors']['incorrect_password'] . "</p>";
+        }
+        ?>
 
-        <input type="submit" value="Sign In" class="w3-btn">
+
+
+
+
+
+
+
+        <button type="submit" name="login" class="add-btn">Login</button>
     </form>
     
 </div>
@@ -34,15 +56,9 @@ include 'includes/header.php';
         <label for="username" class="">Username</label><br>
         <input type="text" name="username" required class=""><br>
         <?php 
-            if (isset($_SESSION['errors']['bad_username'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['bad_username'] . "</p>";
-            } 
-            if (isset($_SESSION['errors']['empty_username'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['empty_username'] . "</p>"; 
-            } 
-            if (isset($_SESSION['errors']['username_length'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['username_length'] . "</p>"; 
-            }
+        display_error('bad_username');
+        display_error('empty_username');
+        display_error('username_length');
         ?>       
 
                                        <!-- Email  -->
@@ -50,15 +66,9 @@ include 'includes/header.php';
         <input type="text" name="email" required class=""><br>   
                                         <!-- Duplicate email Error Handling -->
         <?php 
-            if (isset($_SESSION['errors']['invalid_email'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['invalid_email'] . "</p>";
-            }
-            if (isset($_SESSION['errors']['empty_email'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['empty_email'] . "</p>";
-            }
-            if (isset($_SESSION['errors']['email_length'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['email_length'] . "</p>";
-            }
+        display_error('invalid_email');
+        display_error('empty_email');
+        display_error('email_length');
         ?>
 
                                        <!-- Password  -->
@@ -66,15 +76,9 @@ include 'includes/header.php';
         <input type="text" name="password" required class=""><br>
 
         <?php 
-            if (isset($_SESSION['errors']['empty_password'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['empty_password'] . "</p>";
-            }
-            if (isset($_SESSION['errors']['short_password'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['short_password'] . "</p>";
-            }
-            if (isset($_SESSION['errors']['long_password'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['long_password'] . "</p>";
-            }
+        display_error('empty_password');
+        display_error('short_password');
+        display_error('long_password');
         ?>
 
                                        <!-- Confirm Password  -->
@@ -83,18 +87,15 @@ include 'includes/header.php';
 
                                         <!-- Passwords Do Not Match error Handling  -->
         <?php 
-            if (isset($_SESSION['errors']['confirm_password_error'])) {
-                echo "<p style='color:red'>" . $_SESSION['errors']['confirm_password_error'] . "</p>";
-            }
+        display_error('confirm_password_error');
+
         ?>
 
                                         
                                        <!-- Submit Button  -->
-        <input type="submit" value="Register" class="w3-btn" style="background-color: beige;">    
+        <input type="submit" value="Register" class="add-btn">    
         <?php 
-            if (isset($_SESSION['successful']['register_success'])) {
-                echo "<p style='color:green'>" . $_SESSION['successful']['register_success'] . "</p>";
-            }
+        display_success();
         ?>
         
 
@@ -102,9 +103,42 @@ include 'includes/header.php';
 
     </form>
 
-
-
 </div>
+
+<hr style="margin-top: 4rem;">
+
+<section class="footer-features w3-container w3-center">
+<h2> Learn More About Booksyde Manager</h2>
+
+<ul>
+    <li>Easily save and organize your links.</li>
+    <li>Access your bookmarks across all devices.</li>
+    <li>Free, secure, and completely private.</li>
+</ul>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <?php
 // Clean up success & errors arrays. 
