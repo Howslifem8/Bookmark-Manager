@@ -4,6 +4,8 @@ Bookmark Manager
 Built with a LAMP stack (Linux, Apache, MYSQL, PHP), the website provides a clean and responsive interface where users can save links into custom groups, 
 manage their favorites, and track their recently visited bookmarks -- all with a focus on usability and data persistence between devices. 
 
+Live Demo - https://booksyde-manager.42web.io/?i=1
+
 Features: 
 * User Authentication
     * Register, login, and session mangement. 
