@@ -31,3 +31,5 @@ Tech Stack:
 * Version Control:
   *  git -- git Bash
   *  gitHub
+* Web Host:
+   * InfinityFree - Free Tier Web Hosting 
